@@ -1,0 +1,13 @@
+# Source/scratch files (not needed for the website)
+frames-source/
+jellyfish-transition.mp4
+jellyfish-start-preview.png
+
+# Dev tooling
+.playwright-mcp/
+
+# Screenshots (test images)
+screenshot-*.jpg
+
+# macOS
+.DS_Store
