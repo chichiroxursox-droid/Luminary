@@ -1,0 +1,256 @@
+/* ============================================================
+   GLACIAL — Style
+   ============================================================ */
+
+/* ---- Reset & Variables ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --void:      #AAAAAA;
+  --white:     #E8E8E8;
+  --dark:      #1a1a2e;
+  --cyan:      #00D9FF;
+  --ice:       #D8D8D8;
+  --metal:     #606060;
+  --text:      #FFFFFF;
+  --muted:     #888888;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+html { background: #0a0a0a; }
+
+body {
+  background: #0a0a0a;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ---- LOADER ---- */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loader-brand {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.loader-progress-wrap {
+  width: 240px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+#loader-bar {
+  height: 100%;
+  background: var(--cyan);
+  width: 0%;
+  transition: width 0.2s ease;
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+#loader-percent {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+/* ---- FRAME CANVAS ---- */
+#frame-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- THREE.JS CANVAS (created by overlays.js) ---- */
+#three-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---- HUD ---- */
+#hud {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#hud > * {
+  pointer-events: auto;
+}
+
+/* Title — top left */
+#hud-title {
+  position: absolute;
+  top: 2rem;
+  left: 3vw;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--text);
+}
+
+/* Coordinates — left sidebar */
+#hud-coords {
+  position: absolute;
+  top: 50%;
+  left: 3vw;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Manifesto — right sidebar */
+#hud-manifesto {
+  position: absolute;
+  top: 40%;
+  right: 3vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-align: right;
+  max-width: 280px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Floating labels */
+.hud-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hud-label {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Sound toggle — bottom left */
+#hud-sound {
+  position: absolute;
+  bottom: 2rem;
+  left: 3vw;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#hud-sound:hover {
+  color: var(--text);
+}
+
+/* Scroll hint — bottom right */
+#hud-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  right: 3vw;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* Return hint — bottom right, hidden by default */
+#hud-return-hint {
+  position: absolute;
+  bottom: 2rem;
+  right: 3vw;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* ---- SCROLL CONTAINER ---- */
+#scroll-container {
+  position: relative;
+  height: 600vh;
+}
+
+/* ---- GRAIN OVERLAY ---- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  background-size: 128px 128px;
+}
+
+/* ---- MOBILE ---- */
+@media (max-width: 768px) {
+  #hud-coords { display: none; }
+  #hud-manifesto { display: none; }
+  .hud-labels { display: none; }
+
+  #scroll-container {
+    height: 450vh;
+  }
+}
