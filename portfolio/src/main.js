@@ -24,7 +24,7 @@ gsap.registerPlugin(ScrollTrigger);
 const params = {
   bloom: { strength: 0.3, radius: 0.5, threshold: 0.7 },
   fog: { near: 25, far: 80 },
-  particles: { count: 3000, speed: 0.002 },
+  particles: { count: 200, speed: 0.002 },
   light: { sunIntensity: 1.5, hemiIntensity: 0.6 },
 };
 
@@ -151,7 +151,7 @@ async function init() {
   ]);
   initEnvironment(scene);
   initParticles(scene, params);
-  initComputer(scene, camera);
+  initComputer(scene, camera, renderer);
   initExplore(scene, camera, renderer);
   initChat();
 
