@@ -204,6 +204,7 @@ function createRocks(scene) {
 
 function createFlowers(scene) {
   const petalColors = [0xFFDD44, 0xFF9944, 0xFFAAAA];
+  const petalMats = petalColors.map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.7 }));
   const stemMat = new THREE.MeshStandardMaterial({ color: 0x3a5a2a, roughness: 0.8 });
 
   for (let i = 0; i < 10; i++) {
@@ -226,8 +227,7 @@ function createFlowers(scene) {
     group.add(stem);
 
     // Petals — small cone on top
-    const petalColor = petalColors[i % petalColors.length];
-    const petalMat = new THREE.MeshStandardMaterial({ color: petalColor, roughness: 0.7 });
+    const petalMat = petalMats[i % petalMats.length];
     const petalGeo = new THREE.ConeGeometry(0.06, 0.08, 5);
     const petal = new THREE.Mesh(petalGeo, petalMat);
     petal.position.y = 0.34;

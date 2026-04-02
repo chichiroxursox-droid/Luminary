@@ -8,7 +8,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initDebug } from './debug.js';
-import { initSky, getSunPosition } from './sky.js';
+import { initSky } from './sky.js';
 import { initHouse, update as updateHouse } from './house.js';
 import { initEnvironment } from './environment.js';
 import { initParticles, update as updateParticles } from './particles.js';
