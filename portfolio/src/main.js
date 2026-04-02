@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -69,6 +70,13 @@ scene.add(sunLight);
 // ── Post-processing ──
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
+
+const bokehPass = new BokehPass(scene, camera, {
+  focus: 30.0,
+  aperture: 0.002,
+  maxblur: 0.005,
+});
+composer.addPass(bokehPass);
 
 const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -208,6 +216,16 @@ function animate() {
   }
   hemiLight.intensity = params.light.hemiIntensity;
   sunLight.intensity = params.light.sunIntensity;
+
+  // DoF: subtle blur at distance, sharp when close, disabled inside house
+  if (state === STATES.SCROLLING && progress < 0.4) {
+    bokehPass.enabled = true;
+    const houseCenter = new THREE.Vector3(0, 1, 0);
+    bokehPass.uniforms['focus'].value = camera.position.distanceTo(houseCenter);
+    bokehPass.uniforms['aperture'].value = 0.002 * (1 - progress / 0.4);
+  } else {
+    bokehPass.enabled = false;
+  }
 
   if (state === STATES.SCROLLING) {
     // Apply camera proxy from scroll spline
