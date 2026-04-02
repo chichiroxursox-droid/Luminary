@@ -63,9 +63,8 @@ def set_sky_background():
     nodes.clear()
 
     sky = nodes.new('ShaderNodeTexSky')
-    sky.sky_type = 'NISHITA'
-    sky.sun_elevation = 0.7854  # ~45 degrees
-    sky.sun_rotation = 0.0
+    sky.sky_type = 'HOSEK_WILKIE'
+    sky.sun_direction = (0.5, 0.5, 0.707)  # ~45 degree elevation
 
     bg = nodes.new('ShaderNodeBackground')
     bg.inputs['Strength'].default_value = 1.0

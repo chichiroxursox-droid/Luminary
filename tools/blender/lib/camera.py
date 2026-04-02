@@ -74,12 +74,6 @@ def setup_orbit(target, radius=5.0, height=3.0, frame_start=1, frame_end=60):
     follow.offset = -100  # -100 = full 360 degrees
     follow.keyframe_insert(data_path="offset", frame=frame_end)
 
-    # Make offset interpolation linear (no ease in/out)
-    if cam_obj.animation_data and cam_obj.animation_data.action:
-        for fcurve in cam_obj.animation_data.action.fcurves:
-            for kp in fcurve.keyframe_points:
-                kp.interpolation = 'LINEAR'
-
     # Track target
     track = cam_obj.constraints.new(type='TRACK_TO')
     track.target = target
